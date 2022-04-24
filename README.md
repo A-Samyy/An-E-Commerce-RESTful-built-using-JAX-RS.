@@ -1,15 +1,15 @@
 # JAX-RS REST E-Commerce Web Service
-# An-E-Commerce-RESTful-built-using-JAX-RS.
+### An-E-Commerce-RESTful-built-using-JAX-RS.
 
-# 📃 Documentation
+## 📃 Documentation
 📧[Postman RESTful API Docs](https://documenter.getpostman.com/view/20483744/UyrAGxo3)
 
-# 📦 Features
+## 📦 Features
 * HATEOAS
 * Custom ExceptionMappers
 * Content negotiation (support for both XML and JSON payloads and responses)
 
-# ⚙ Technologies used
+## ⚙ Technologies used
 * JAX-RS (Jersey)
 * JSON-B
 * JAX-B
@@ -18,7 +18,7 @@
 * Intellij IDEA Ultimate
 * Postman
 
- # 🛠 Run with Maven
+ ## 🛠 Run with Maven
     **Maven**
 * Change the configuration of Tomcat in `pom.xml`. 
 * Deploy the application using the following maven command:
@@ -32,7 +32,7 @@ mvn clean compile tomcat7:redeploy
 * Hibernate will automatically create the tables for you
 * Run DatabasePopulator.java to populate the database with some test data
 
-# 👷️ Contributors
+## 👷️ Contributors
 * [Abdelrahman Samy](https://github.com/A-Samyy)
 
    
