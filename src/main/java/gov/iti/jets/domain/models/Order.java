@@ -1,5 +1,6 @@
 package gov.iti.jets.domain.models;
 
+import gov.iti.jets.domain.dtos.order.OrderLineItemSerializable;
 import gov.iti.jets.domain.dtos.order.OwnerSerializable;
 import jakarta.json.bind.annotation.JsonbTypeSerializer;
 import jakarta.persistence.*;
@@ -16,6 +17,7 @@ public class Order {
     private int id;
 
     @OneToMany( mappedBy = "order", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    @JsonbTypeSerializer( OrderLineItemSerializable.class )
     private final Set<OrderLineItem> orderLineItems = new HashSet<>();
 
 

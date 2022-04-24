@@ -96,7 +96,6 @@ public class UserServiceImpl implements UserServiceInt {
 
     @Override
     public String deleteUser( int id ) {
-        try {
             ur = createUserRepo();
             shoCartRepo = new ShoppingCartRepository( em );
             or = new OrderRepository( em );
@@ -119,6 +118,7 @@ public class UserServiceImpl implements UserServiceInt {
                 System.out.println( "no shopping cart for user" );
                 throw new ShoppingCartNotFoundException( "User With id= "+id+" has no ShoppingCart." );
             }
+        try {
             tr.begin();
             ur.deleteById( id );
             tr.commit();
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserServiceInt {
             return "User is deleted";
         } catch ( Exception e ) {
             e.printStackTrace();
-            throw new CustomerNotFoundException( "User With id= "+id+" does not exist." );
+            throw new CustomerNotFoundException( "User With id= " + id + " does not exist." );
         }
     }
 

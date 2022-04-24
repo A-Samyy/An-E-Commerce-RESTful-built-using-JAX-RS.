@@ -11,9 +11,9 @@ import jakarta.jws.WebService;
 public interface UserServiceInt {
     public List<User> getUsers();
 
-    public User getUser(int id);
+    public User getUser(int userId);
 
-    public List<Order> getUserOrders(int id);
+    public List<Order> getUserOrders(int userId);
 
     public String createUser(User user);
 

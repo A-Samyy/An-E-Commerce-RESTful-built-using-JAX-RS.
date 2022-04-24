@@ -1,7 +1,10 @@
 package gov.iti.jets.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import gov.iti.jets.domain.dtos.order.OrderGetDto;
+import gov.iti.jets.domain.dtos.util.OrderMapper;
 import gov.iti.jets.domain.models.Order;
 import gov.iti.jets.service.impl.ShoppingCartServiceImpl;
 import gov.iti.jets.service.impl.UserServiceImpl;
@@ -33,7 +36,9 @@ public class OrderController {
     @Path("{uid}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getUserOrders(@PathParam("uid") int userId) {
-       List<Order>orders= usi.getUserOrders( userId );
+       List<OrderGetDto> orders= new ArrayList<>();
+
+       usi.getUserOrders( userId ).forEach( order -> orders.add( OrderMapper.entityToGetDto( order ) ) );
         if( orders.size() != 0) {
             return Response.ok().entity( orders ).build();
         } else {

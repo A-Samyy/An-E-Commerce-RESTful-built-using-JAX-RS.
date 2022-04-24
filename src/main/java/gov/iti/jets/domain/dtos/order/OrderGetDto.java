@@ -10,13 +10,14 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 @XmlRootElement
 public class OrderGetDto implements Serializable {
     private int id;
 
-//    @XmlJavaTypeAdapter( OrderLineItem.JaxbAdapter.class )
-    @JsonbTypeSerializer( OrderLineItemSerializable.class )
-private final Set<OrderLineItem> orderLineItems = new HashSet<>();
+    //    @XmlJavaTypeAdapter( OrderLineItem.JaxbAdapter.class )
+//    @JsonbTypeSerializer( OrderLineItemSerializable.class )
+    private Set<OrderLineItemDto> orderLineItems = new HashSet<>();
 
     private long total = 0;
 
@@ -28,6 +29,16 @@ private final Set<OrderLineItem> orderLineItems = new HashSet<>();
         this.total = total;
     }
 
+    public OrderGetDto( int id, Set<OrderLineItemDto> orderLineItems, long total ) {
+        this.id = id;
+        this.orderLineItems = orderLineItems;
+        this.total = total;
+    }
+
+    public void setOrderLineItems( Set<OrderLineItemDto> orderLineItems ) {
+        this.orderLineItems = orderLineItems;
+    }
+
     public int getId() {
         return id;
     }
@@ -36,7 +47,7 @@ private final Set<OrderLineItem> orderLineItems = new HashSet<>();
         this.id = id;
     }
 
-    public Set<OrderLineItem> getOrderLineItems() {
+    public Set<OrderLineItemDto> getOrderLineItems() {
         return orderLineItems;
     }
 
