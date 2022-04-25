@@ -30,40 +30,40 @@ public class ProductRepository extends AbstractRepository<Product> {
         return products;
     }
 
-    public List<Product> findProductsByNameOrCategory(String productNameQuery, Category productCategory) {
-        TypedQuery<Product> queryByName = entityManager
-                .createQuery("SELECT p FROM Product p WHERE (p.name LIKE :name AND p.deleted = FALSE)", Product.class);
-        TypedQuery<Product> queryByNameAndCategory = entityManager.createQuery(
-                "SELECT p FROM Product  p WHERE (p.name LIKE :name AND p.category = :category AND p.deleted = FALSE)",
-                Product.class);
-        TypedQuery<Product> queryByCategory = entityManager.createQuery(
-                "SELECT p FROM Product  p WHERE (p.category = :category AND p.deleted = FALSE)", Product.class);
-        String nameQuery = "%" + productNameQuery + "%";
-
-        List<Product> products;
-
-        if (productNameQuery.trim().isEmpty() && productCategory == null) {
-            // If no search criteria are provided, do not search
-            products = new ArrayList<>();
-
-        } else if (productNameQuery.trim().isEmpty()) {
-            products = queryByCategory
-                    .setParameter("category", productCategory)
-                    .getResultList();
-
-        } else if (productCategory == null) {
-            products = queryByName
-                    .setParameter("name", nameQuery)
-                    .getResultList();
-        } else {
-            products = queryByNameAndCategory
-                    .setParameter("name", nameQuery)
-                    .setParameter("category", productCategory)
-                    .getResultList();
-        }
-
-        return products;
-    }
+//    public List<Product> findProductsByNameOrCategory(String productNameQuery, Category productCategory) {
+//        TypedQuery<Product> queryByName = entityManager
+//                .createQuery("SELECT p FROM Product p WHERE (p.name LIKE :name AND p.deleted = FALSE)", Product.class);
+//        TypedQuery<Product> queryByNameAndCategory = entityManager.createQuery(
+//                "SELECT p FROM Product  p WHERE (p.name LIKE :name AND p.category = :category AND p.deleted = FALSE)",
+//                Product.class);
+//        TypedQuery<Product> queryByCategory = entityManager.createQuery(
+//                "SELECT p FROM Product  p WHERE (p.category = :category AND p.deleted = FALSE)", Product.class);
+//        String nameQuery = "%" + productNameQuery + "%";
+//
+//        List<Product> products;
+//
+//        if (productNameQuery.trim().isEmpty() && productCategory == null) {
+//            // If no search criteria are provided, do not search
+//            products = new ArrayList<>();
+//
+//        } else if (productNameQuery.trim().isEmpty()) {
+//            products = queryByCategory
+//                    .setParameter("category", productCategory)
+//                    .getResultList();
+//
+//        } else if (productCategory == null) {
+//            products = queryByName
+//                    .setParameter("name", nameQuery)
+//                    .getResultList();
+//        } else {
+//            products = queryByNameAndCategory
+//                    .setParameter("name", nameQuery)
+//                    .setParameter("category", productCategory)
+//                    .getResultList();
+//        }
+//
+//        return products;
+//    }
     public List<Product> getPageOfProduct( int pageNumber , int pageSize) {
         TypedQuery<Product> query = entityManager.createQuery( "SELECT p FROM Product  p ", Product.class );
                                 //     1        x       11
