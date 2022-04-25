@@ -74,8 +74,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartServiceInt {
         if ( allItemsByShoppingId.size() != 0 ) {
             return allItemsByShoppingId;
         } else {
-
-//            throw new OrderNotFoundException( "There is no Customer with id= "+id+" Exist" );
             throw new CartLineItemNotFoundException( "No items found in userId= " + id + " shopping cart." );
         }
 
