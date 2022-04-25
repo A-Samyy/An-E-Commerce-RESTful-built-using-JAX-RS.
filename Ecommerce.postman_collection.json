@@ -70,7 +70,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9595/RestAPI/api/products",
+							"raw": "http://localhost:9595/RestAPI/api/products?start=9&page=11",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -80,6 +80,16 @@
 								"RestAPI",
 								"api",
 								"products"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "9"
+								},
+								{
+									"key": "page",
+									"value": "11"
+								}
 							]
 						}
 					},
@@ -133,7 +143,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":111,\r\n    \"name\":\"Roiter Sport\",\r\n    \"description\":\"WHITE blocks of happiness\",\r\n    \"category\":\"DARK_CHOCOLATE\",\r\n    \"price\":88,\r\n    \"quantity\":200\r\n}"
+							"raw": "{\r\n    \"id\":111,\r\n    \"name\":\"Roiter Sport2\",\r\n    \"description\":\"WHITE blocks of happiness\",\r\n    \"category\":\"DARK_CHOCOLATE\",\r\n    \"price\":88,\r\n    \"quantity\":200\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9595/RestAPI/api/products",
@@ -218,6 +228,12 @@
 							{
 								"key": "Accept",
 								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
 								"type": "text"
 							}
 						],
@@ -538,7 +554,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": 118,\r\n    \"productId\": 9,\r\n    \"quantity\": 10\r\n}"
+							"raw": "{\r\n    \"userId\": 101,\r\n    \"productId\": 105,\r\n    \"quantity\": 12\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9595/RestAPI/api/shoppingCarts",
