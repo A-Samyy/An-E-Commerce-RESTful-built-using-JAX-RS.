@@ -32,7 +32,7 @@ public class ProductController {
 
      @GET
      @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-     public Response getProductPage( @DefaultValue("1") @QueryParam("start") int start, @DefaultValue("2") @QueryParam("page") int page) {
+     public Response getProductPage( @DefaultValue("1") @QueryParam("from") int start, @DefaultValue("2") @QueryParam("to") int page) {
          List<ProductGetDto> getDtos = new ArrayList<>();
          psi.getProductPagination(start, page).forEach( product -> getDtos.add( ProductMapper.entityToGet( product ) ) );
      return Response.ok().entity(getDtos).build();

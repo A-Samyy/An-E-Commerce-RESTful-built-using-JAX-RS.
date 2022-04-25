@@ -7,6 +7,7 @@ import java.util.UUID;
 import gov.iti.jets.domain.models.*;
 import gov.iti.jets.exception.CustomerNotFoundException;
 import gov.iti.jets.exception.OrderNotFoundException;
+import gov.iti.jets.exception.ProductNotFoundException;
 import gov.iti.jets.exception.ShoppingCartNotFoundException;
 import gov.iti.jets.repository.OrderRepository;
 import gov.iti.jets.repository.ShoppingCartRepository;
@@ -31,6 +32,18 @@ public class UserServiceImpl implements UserServiceInt {
         List<User> findAll = ur.findAll();
         cleaningup();
         return findAll;
+    }
+
+    @Override
+    public List<User> getUserPagination( int start, int page ) {
+        ur = createUserRepo();
+        List<User> users = ur.getPageOfUser( start, page );
+        cleaningup();
+        if ( users.size() != 0 ) {
+            return users;
+        }else {
+            throw new CustomerNotFoundException( "There is no Users in this page" );
+        }
     }
 
     @Override
