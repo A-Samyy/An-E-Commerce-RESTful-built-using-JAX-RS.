@@ -16,6 +16,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class ProductRepository extends AbstractRepository<Product> {
+    private final static int PAGE_SIZE = 2;
     public ProductRepository(EntityManager entityManager) {
         super(entityManager);
         this.setClazz(Product.class);
@@ -62,6 +63,16 @@ public class ProductRepository extends AbstractRepository<Product> {
         }
 
         return products;
+    }
+    public List<Product> getPageOfProduct( int pageNumber , int pageSize) {
+        TypedQuery<Product> query = entityManager.createQuery( "SELECT p FROM Product  p ", Product.class );
+                                //     1        x       11
+//        return query.setFirstResult( ( pageNumber - 1 ) * pageSize )
+//                .setMaxResults( pageSize )
+//                .getResultList();
+        return query.setFirstResult(  pageNumber - 1  )
+                .setMaxResults( pageSize )
+                .getResultList();
     }
 
 }

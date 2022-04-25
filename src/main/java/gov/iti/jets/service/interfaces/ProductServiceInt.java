@@ -21,4 +21,6 @@ public interface ProductServiceInt {
     public String updateProduct(Product product);
 
     public String deleteProduct(int id);
+
+    public List<Product> getProductPagination(int start, int page);
 }

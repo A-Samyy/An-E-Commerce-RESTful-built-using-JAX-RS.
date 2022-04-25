@@ -104,6 +104,18 @@ public class ProductServiceImpl implements ProductServiceInt {
         }
     }
 
+    @Override
+    public List<Product> getProductPagination( int start, int page ) {
+        pr = createProductRepo();
+        List<Product> products = pr.getPageOfProduct( start, page );
+        cleaningup();
+        if ( products.size() != 0 ) {
+            return products;
+        }else {
+            throw new ProductNotFoundException( "There is no Products in this page" );
+        }
+    }
+
     private ProductRepository createProductRepo() {
         emf = Persistence.createEntityManagerFactory( "api" );
         em = emf.createEntityManager();

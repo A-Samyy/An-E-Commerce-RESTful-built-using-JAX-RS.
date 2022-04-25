@@ -11,15 +11,7 @@ import gov.iti.jets.domain.dtos.util.ProductMapper;
 import gov.iti.jets.domain.dtos.util.UserMapper;
 import gov.iti.jets.service.impl.ProductServiceImpl;
 import gov.iti.jets.service.interfaces.ProductServiceInt;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PATCH;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Link;
 import jakarta.ws.rs.core.MediaType;
@@ -30,21 +22,21 @@ import jakarta.ws.rs.core.UriInfo;
 public class ProductController {
     ProductServiceInt psi = new ProductServiceImpl();
 
-    @GET
-    @Produces( {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML} )
-    public List<ProductGetDto> getAllProducts() {
-        List<ProductGetDto> getDtos = new ArrayList<>();
-        psi.getProducts().forEach( product -> getDtos.add( ProductMapper.entityToGet( product ) ) );
-        return getDtos;
-    }
+//    @GET
+//    @Produces( {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML} )
+//    public List<ProductGetDto> getAllProducts() {
+//        List<ProductGetDto> getDtos = new ArrayList<>();
+//        psi.getProducts().forEach( product -> getDtos.add( ProductMapper.entityToGet( product ) ) );
+//        return getDtos;
+//    }
 
-    // @GET
-    // @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    // public Response getProductPage(@DefaultValue("1") @QueryParam("start") int
-    // start,
-    // @DefaultValue("2") @QueryParam("page") int page) {
-    // return Response.ok().entity(ProductService.pagination(start, page)).build();
-    // }
+     @GET
+     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+     public Response getProductPage( @DefaultValue("1") @QueryParam("start") int start, @DefaultValue("2") @QueryParam("page") int page) {
+         List<ProductGetDto> getDtos = new ArrayList<>();
+         psi.getProductPagination(start, page).forEach( product -> getDtos.add( ProductMapper.entityToGet( product ) ) );
+     return Response.ok().entity(getDtos).build();
+     }
 
     @GET
     @Path( "{pid}" )

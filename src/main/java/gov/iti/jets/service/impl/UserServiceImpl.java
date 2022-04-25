@@ -18,7 +18,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import net.bytebuddy.implementation.bytecode.Throw;
 
-@WebService( endpointInterface = "gov.iti.jets.service.interfaces.EmployeeServiceInt" )
 public class UserServiceImpl implements UserServiceInt {
     EntityManagerFactory emf;
     EntityManager em;

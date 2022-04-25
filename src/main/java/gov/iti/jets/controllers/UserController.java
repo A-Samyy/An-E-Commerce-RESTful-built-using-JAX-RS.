@@ -11,8 +11,7 @@ import gov.iti.jets.domain.dtos.util.UserMapper;
 import gov.iti.jets.service.impl.UserServiceImpl;
 import gov.iti.jets.service.interfaces.UserServiceInt;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.*;
 
 @Path( "users" )
 public class UserController {
@@ -29,9 +28,11 @@ public class UserController {
     @GET
     @Path( "{cid}" )
     @Produces( {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML} )
-    public Response getUser( @PathParam( "cid" ) int id ) {
+    public Response getUser( @PathParam( "cid" ) int id  ,  @Context UriInfo uriInfo) {
         UserGetDto getDto = UserMapper.entityToGet( usi.getUser( id ) );
         if ( getDto != null ) {
+            Link self = Link.fromUriBuilder( uriInfo.getAbsolutePathBuilder() ).rel( "self" ).build();
+            getDto.getLinks().add( "Self ref=\"" + self.getUri() + "\"" );
             return Response.ok().entity( getDto ).build();
         }
         return Response.noContent().build();
