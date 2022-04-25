@@ -4,6 +4,8 @@ import gov.iti.jets.domain.models.CartLineItem;
 import gov.iti.jets.domain.models.Order;
 import gov.iti.jets.domain.models.ShoppingCart;
 import gov.iti.jets.domain.models.User;
+import gov.iti.jets.exception.CartLineItemNotFoundException;
+import gov.iti.jets.exception.OrderNotFoundException;
 import gov.iti.jets.repository.OrderRepository;
 import gov.iti.jets.repository.ShoppingCartRepository;
 import gov.iti.jets.repository.UserRepository;
@@ -69,7 +71,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartServiceInt {
         ShoppingCart findShoppingCartbyUserId = ur.findShoppingCartbyUserId( id );
         List<CartLineItem> allItemsByShoppingId = shoCartRepo.findAllItemsByShoppingId( findShoppingCartbyUserId.getId() );
         cleaningup();
-        return allItemsByShoppingId;
+        if ( allItemsByShoppingId.size() != 0 ) {
+            return allItemsByShoppingId;
+        } else {
+
+//            throw new OrderNotFoundException( "There is no Customer with id= "+id+" Exist" );
+            throw new CartLineItemNotFoundException( "No items found in userId= " + id + " shopping cart." );
+        }
+
     }
 
     @Override

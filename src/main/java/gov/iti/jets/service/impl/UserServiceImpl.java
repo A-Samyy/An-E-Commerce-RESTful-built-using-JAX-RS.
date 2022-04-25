@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserServiceInt {
         cleaningup();
         if ( users.size() != 0 ) {
             return users;
-        }else {
+        } else {
             throw new CustomerNotFoundException( "There is no Users in this page" );
         }
     }
@@ -53,21 +53,31 @@ public class UserServiceImpl implements UserServiceInt {
         cleaningup();
         if ( findOne.isPresent() ) {
             return findOne.get();
-        }else {
-            throw new CustomerNotFoundException( "User With id= "+id+" does not exist." );
+        } else {
+            throw new CustomerNotFoundException( "User With id= " + id + " does not exist." );
         }
     }
 
     @Override
     public List<Order> getUserOrders( int userId ) {
         or = createOrdersRepo();
-        List<Order> findAllByUserId = or.findAllByUserId( userId );
-        cleaningup();
-        if(findAllByUserId.size() != 0){
-        return findAllByUserId;
+        if ( isUserExist( userId ) ) {
+            List<Order> findAllByUserId = or.findAllByUserId( userId );
+            cleaningup();
+            if ( findAllByUserId.size() != 0 ) {
+                return findAllByUserId;
+            } else {
+                throw new OrderNotFoundException( "The customer with id= " + userId + " has no orders yet." );
+            }
+
         }else {
-            throw new OrderNotFoundException( "The customer with id= "+userId+ " has no orders yet." );
+            throw  new CustomerNotFoundException( "There is no Customer with id= "+userId+" Exist" );
         }
+    }
+
+    private boolean isUserExist( int userId ) {
+        ur = new UserRepository( em );
+        return ur.findOne( userId ).isPresent();
     }
 
     @Override
@@ -87,7 +97,7 @@ public class UserServiceImpl implements UserServiceInt {
             cleaningup();
             return "User is added";
         } catch ( Exception e ) {
-            throw new CustomerNotFoundException( "User With id= "+user.getId()+" does not exist." );
+            throw new CustomerNotFoundException( "User With id= " + user.getId() + " does not exist." );
         }
     }
 
@@ -102,34 +112,34 @@ public class UserServiceImpl implements UserServiceInt {
             cleaningup();
             return "User is updated";
         } catch ( Exception e ) {
-            throw new CustomerNotFoundException( "User With id= "+user.getId()+" does not exist." );
+            throw new CustomerNotFoundException( "User With id= " + user.getId() + " does not exist." );
         }
     }
 
     @Override
     public String deleteUser( int id ) {
-            ur = createUserRepo();
-            shoCartRepo = new ShoppingCartRepository( em );
-            or = new OrderRepository( em );
-            var tr = em.getTransaction();
-            try {
-                List<Order> orders = or.findAllByUserId( id );
-                tr.begin();
-                orders.forEach( order -> or.delete( order ) );
-                tr.commit();
+        ur = createUserRepo();
+        shoCartRepo = new ShoppingCartRepository( em );
+        or = new OrderRepository( em );
+        var tr = em.getTransaction();
+        try {
+            List<Order> orders = or.findAllByUserId( id );
+            tr.begin();
+            orders.forEach( order -> or.delete( order ) );
+            tr.commit();
 
-            } catch ( Exception e ) {
-                System.out.println( "no orders for user" );
-            }
-            try {
-                ShoppingCart shoppingCart = ur.findShoppingCartbyUserId( id );
-                tr.begin();
-                shoCartRepo.delete( shoppingCart );
-                tr.commit();
-            } catch ( Exception e ) {
-                System.out.println( "no shopping cart for user" );
-                throw new ShoppingCartNotFoundException( "User With id= "+id+" has no ShoppingCart." );
-            }
+        } catch ( Exception e ) {
+            System.out.println( "no orders for user" );
+        }
+        try {
+            ShoppingCart shoppingCart = ur.findShoppingCartbyUserId( id );
+            tr.begin();
+            shoCartRepo.delete( shoppingCart );
+            tr.commit();
+        } catch ( Exception e ) {
+            System.out.println( "no shopping cart for user" );
+            throw new ShoppingCartNotFoundException( "User With id= " + id + " has no ShoppingCart." );
+        }
         try {
             tr.begin();
             ur.deleteById( id );

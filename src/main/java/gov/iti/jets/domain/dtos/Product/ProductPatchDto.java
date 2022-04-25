@@ -4,7 +4,6 @@ import gov.iti.jets.domain.enums.Category;
 
 public class ProductPatchDto {
     private int id;
-
     private Object name;
 
     private Object description;
