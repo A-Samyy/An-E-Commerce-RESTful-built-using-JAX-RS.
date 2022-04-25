@@ -70,7 +70,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9595/RestAPI/api/products?start=9&page=11",
+							"raw": "http://localhost:9595/RestAPI/api/products?from=1&to=3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -83,12 +83,12 @@
 							],
 							"query": [
 								{
-									"key": "start",
-									"value": "9"
+									"key": "from",
+									"value": "1"
 								},
 								{
-									"key": "page",
-									"value": "11"
+									"key": "to",
+									"value": "3"
 								}
 							]
 						}
@@ -238,7 +238,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9595/RestAPI/api/users",
+							"raw": "http://localhost:9595/RestAPI/api/users?from=10&to=200",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -248,6 +248,16 @@
 								"RestAPI",
 								"api",
 								"users"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "10"
+								},
+								{
+									"key": "to",
+									"value": "200"
+								}
 							]
 						}
 					},
